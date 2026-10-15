@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import iconPhone from '../assets/images/icon-phone.png';
+import iconClock from '../assets/images/icon-clock.png';
+import iconMap from '../assets/images/icon-map.png';
+import SocialIcon from './SocialIcon.astro';
+import MapEmbed from './MapEmbed.astro';
+---
+
+<section id="contact" class="contact container" aria-labelledby="contact-title">
+  <h2 id="contact-title" class="section-title">Contact</h2>
+  <p class="contact__intro text-center">
+    Massages alleen op afspraak, <br />bel, sms, e-mail of stuur een WhatsApp bericht voor meer info of een afspraak.
+  </p>
+
+  <div class="columns">
+    <div class="contact__details">
+      <div class="contact__row">
+        <Image src={iconPhone} alt="" width={80} height={83} densities={[1, 2]} />
+        <div>
+          <p class="contact__name">
+            <strong>Nathalie</strong>
+            <SocialIcon network="whatsapp" href="https://wa.me/31627963822" />
+          </p>
+          <p>
+            <a href="tel:+31627963822">+31 6 27 96 38 22</a><br />
+            <a href="mailto:nathalie@massage-to-go.nl">nathalie@massage-to-go.nl</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="contact__row">
+        <Image src={iconClock} alt="" width={80} height={80} densities={[1, 2]} />
+        <p>
+          <strong>Openingstijden</strong><br />Ma t/m vr: 09.00 – 21.00 uur<br />Weekend: In overleg, op basis van
+          beschikbaarheid
+        </p>
+      </div>
+
+      <div class="contact__row">
+        <Image src={iconMap} alt="" width={80} height={82} densities={[1, 2]} />
+        <p>
+          <strong>Bezoekadres</strong><br />Sportschool Athletic Performance Studio<br />
+          <em>
+            <a href="https://goo.gl/maps/GN4wbUi7zfUYoCL4A?coh=178573&entry=tt" target="_blank" rel="noopener">
+              Rijksweg Noord 5<br />6131 CH Sittard
+            </a>
+          </em>
+        </p>
+      </div>
+    </div>
+
+    <MapEmbed query="Rijksweg Noord 5, 6131 CH Sittard" label="Rijksweg Noord 5, 6131 CH Sittard" />
+  </div>
+</section>
+
+<style>
+  .contact__intro {
+    margin-bottom: var(--space-60);
+  }
+
+  .contact__details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact__row {
+    display: grid;
+    grid-template-columns: 22fr 78fr;
+    gap: var(--gap);
+    align-items: start;
+  }
+
+  .contact__row img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .contact__row p {
+    margin: 0;
+  }
+
+  .contact__name {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .contact a[href^='tel:'],
+  .contact a[href^='mailto:'] {
+    color: inherit;
+  }
+</style>

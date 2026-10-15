@@ -1,0 +1,46 @@
+---
+import SocialIcon from './SocialIcon.astro';
+---
+
+<section class="business-info container" aria-label="Bedrijfsgegevens">
+  <div class="columns">
+    <p class="text-center">
+      Massage To Go is per 01-02-2024 geregistreerd bij de Kamer Van Koophandel onder nummer nummer: 92 82 3572.<br
+      /><br />BTW Nummer: NL004980741B14
+    </p>
+
+    <div class="business-info__social">
+      <p class="business-info__follow">Volg ons</p>
+      <div class="business-info__icons">
+        <SocialIcon network="linkedin" href="https://linkedin.com/in/nathaliehendrix" />
+        <SocialIcon network="facebook" href="https://www.facebook.com/profile.php?id=100092516869985" />
+        <SocialIcon network="instagram" href="https://www.instagram.com/massagetogosittard/" />
+      </div>
+    </div>
+
+    <p class="text-center">
+      <strong>Special thanks to:</strong><br />Webdesign: C.<br />Logo Design: Eefje Schenk<br />Fotografie: Henk
+      Hollemans
+    </p>
+  </div>
+</section>
+
+<style>
+  .business-info {
+    padding-top: var(--space-60);
+  }
+
+  .business-info__follow {
+    margin-bottom: 0.8em;
+    padding-left: var(--space-50);
+    font-size: var(--fs-medium);
+    text-align: center;
+  }
+
+  .business-info__icons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: var(--space-80);
+  }
+</style>

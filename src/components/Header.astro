@@ -1,0 +1,197 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.jpeg';
+
+/**
+ * Main navigation. Add a page by adding an entry here.
+ * Anchor links use "/#id" so they also work from other pages.
+ */
+const navItems = [
+  { href: '/#home', label: 'Home' },
+  { href: '/#behandelingen', label: 'Behandelingen' },
+  { href: '/#prijslijst', label: 'Prijslijst' },
+  { href: '/#cadeaubon', label: 'Cadeaubon' },
+  { href: '/#over-mij', label: 'Over mij' },
+  { href: '/#fotos', label: 'Foto’s' },
+  { href: '/#contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => !href.includes('#') && (href.replace(/\/$/, '') || '/') === currentPath;
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Massage To Go – home">
+      <Image src={logo} alt="Massage To Go" width={150} height={56} densities={[1, 2]} loading="eager" />
+    </a>
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Menu"
+    >
+      <svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M3 13h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0-6h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0 12h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2z" />
+      </svg>
+      <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M5.3 5.3a1 1 0 0 1 1.4 0L12 10.6l5.3-5.3a1 1 0 1 1 1.4 1.4L13.4 12l5.3 5.3a1 1 0 0 1-1.4 1.4L12 13.4l-5.3 5.3a1 1 0 0 1-1.4-1.4l5.3-5.3-5.3-5.3a1 1 0 0 1 0-1.4z" />
+      </svg>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.site-header__toggle');
+  const nav = document.getElementById('site-nav');
+
+  if (toggle && nav) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+    };
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+
+    // Close after choosing a link, on Escape, and when switching to the desktop layout.
+    nav.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    matchMedia('(min-width: 922px)').addEventListener('change', () => setOpen(false));
+  }
+</script>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(100% - 2 * var(--gutter), var(--content-width));
+    min-height: var(--header-height);
+    margin-inline: auto;
+  }
+
+  .site-header__logo {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .site-header__logo img {
+    width: 150px;
+    height: 56px;
+  }
+
+  .site-nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav a {
+    display: block;
+    padding: 0 22px;
+    font-size: var(--fs-body);
+    line-height: 80px;
+    color: var(--color-nav);
+    text-decoration: none;
+  }
+
+  .site-nav a:hover,
+  .site-nav a[aria-current='page'] {
+    color: var(--color-link-hover);
+  }
+
+  .site-header__toggle {
+    display: none;
+  }
+
+  @media (max-width: 921px) {
+    .site-header__inner {
+      width: 100%;
+      padding-inline: var(--gutter) 0;
+    }
+
+    .site-header__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-right: var(--gutter);
+      padding: 0;
+      color: var(--color-text);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .site-header__toggle[aria-expanded='true'] {
+      border-color: var(--color-text);
+    }
+
+    .site-header__toggle .icon-close,
+    .site-header__toggle[aria-expanded='true'] .icon-menu {
+      display: none;
+    }
+
+    .site-header__toggle[aria-expanded='true'] .icon-close {
+      display: block;
+    }
+
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      box-shadow: 0 4px 8px rgb(0 0 0 / 0.08);
+    }
+
+    .site-nav.is-open {
+      display: block;
+    }
+
+    .site-nav ul {
+      flex-direction: column;
+      padding-bottom: 10px;
+    }
+
+    .site-nav a {
+      padding: 0 var(--gutter);
+      line-height: 51px;
+    }
+  }
+</style>

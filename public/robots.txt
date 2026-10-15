@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://massage-to-go.nl/sitemap-index.xml

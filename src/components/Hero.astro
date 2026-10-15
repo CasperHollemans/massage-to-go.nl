@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/images/hero.jpg';
+---
+
+<section id="home" class="hero" aria-labelledby="hero-title">
+  <!-- The logo and tagline are part of the photo; the h1 gives them to screen readers and search engines. -->
+  <h1 id="hero-title" class="visually-hidden">Massage To Go – Soepel Verder Gaan!</h1>
+  <Image
+    class="hero__image"
+    src={hero}
+    alt=""
+    widths={[768, 1024, 1366, 1640]}
+    sizes="(max-width: 921px) 1340px, 100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="hero__actions">
+    <a class="button hero__button" href="#contact"><strong>Contact</strong></a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 556px;
+    padding-bottom: 72px;
+    overflow: hidden;
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+  }
+
+  .hero__actions {
+    position: relative;
+  }
+
+  .hero__button {
+    border: 2px solid var(--color-button-text);
+  }
+
+  .hero__button strong {
+    font-weight: 500;
+  }
+
+  @media (max-width: 921px) {
+    .hero {
+      min-height: 544px;
+      padding-bottom: 67px;
+    }
+  }
+
+  @media (max-width: 544px) {
+    .hero {
+      min-height: 540px;
+    }
+  }
+</style>

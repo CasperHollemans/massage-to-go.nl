@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/images/whatsapp-button.png';
+---
+
+<a
+  class="whatsapp-button"
+  href="https://wa.me/31627963822?text=Ik+wil+graag+een+afspraak+maken."
+  target="_blank"
+  rel="noopener"
+>
+  <Image src={icon} alt="Maak een afspraak via WhatsApp" width={75} height={75} densities={[1, 2]} />
+</a>
+
+<style>
+  .whatsapp-button {
+    position: fixed;
+    left: 15px;
+    bottom: 15px;
+    z-index: 40;
+    border-radius: 50%;
+  }
+
+  .whatsapp-button img {
+    width: 75px;
+    height: 75px;
+    opacity: 0.95;
+  }
+
+  .whatsapp-button:hover img {
+    opacity: 1;
+  }
+</style>

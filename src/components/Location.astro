@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import voorgevel from '../assets/images/voorgevel.jpg';
+---
+
+<section class="location container" aria-labelledby="parkeren-title">
+  <p class="location__parking">
+    <strong id="parkeren-title">Parkeermogelijkheden</strong><br />Er zijn tween ruime parkeer garages op korte loop
+    afstand van Massage To Go, zie hier onder de locaties:
+  </p>
+  <ul>
+    <li><a href="https://maps.app.goo.gl/UJ7cmt3EKYReXj2A9">Route naar Parkeergarage Walramstraat.</a></li>
+    <li><a href="https://maps.app.goo.gl/KE4hXFk9UxZpzx6SA">Klik hier voor de route naar Linge Parking.</a></li>
+  </ul>
+
+  <Image
+    class="location__photo"
+    src={voorgevel}
+    alt="Voorgevel van sportschool Athletic Performance Studio aan de Rijksweg Noord in Sittard"
+    widths={[400, 800, 1200, 2048]}
+    sizes="(max-width: 1240px) calc(100vw - 40px), 1200px"
+  />
+
+  <p>
+    De massagepraktijk van Massage To Go bevindt zich in sportschool <em
+      ><a href="https://athleticperformancestudio.nl/" target="_blank" rel="noopener noreferrer"
+        >Athletic Performance Studio</a
+      > (APS)</em
+    >.
+  </p>
+</section>
+
+<style>
+  .location {
+    padding-top: var(--space-60);
+  }
+
+  .location__parking {
+    margin-bottom: var(--space-50);
+  }
+
+  .location__photo {
+    width: 100%;
+    margin-bottom: var(--space-80);
+  }
+</style>

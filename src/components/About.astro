@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import avatar from '../assets/images/nathalie-avatar.jpg';
+import SocialIcon from './SocialIcon.astro';
+---
+
+<section id="over-mij" class="about container" aria-labelledby="over-mij-title">
+  <h2 id="over-mij-title" class="section-title">Over mij</h2>
+
+  <div class="about__profile">
+    <Image class="about__avatar" src={avatar} alt="Nathalie Hendrix" width={107} height={107} densities={[1, 2]} />
+    <div class="about__details">
+      <h3>Nathalie Hendrix</h3>
+      <p class="about__phone"><a href="tel:+31627963822">+31 6 27 96 38 22</a></p>
+      <div class="about__social">
+        <SocialIcon network="linkedin" href="https://linkedin.com/in/nathaliehendrix" />
+        <SocialIcon network="whatsapp" href="https://wa.me/31627963822" />
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Al zo lang ik mij kan herinneren heb ik een passie voor sporten. Als uitlaatklep, als uitdaging, als gezellig
+    samenzijn en niet in de laatste plaats om mijzelf fysiek en mentaal in fijne conditie te houden.<br />Een belangrijke
+    tegenhanger, de ontspanning, heb ik jaren geleden ontdekt in het nemen van (sport)massages.<br />Toen wist ik nog
+    niet dat ik ooit heel veel voldoening zou gaan beleven door het zelf geven van massages.
+  </p>
+
+  <p>
+    Afgestudeerd als dramatherapeut, heb ik altijd graag gewerkt met mensen, met als focus hun krachten en kansen.<br
+    />Zelf heb ik zo na intensieve revalidatie (i.v.m. visuele beperking) een mooie carrièreswitch kunnen maken. Ik heb
+    een certificaat behaald voor ontspanningsmassage, en inmiddels ben ik ook door het NGS (Nederlands Genootschap
+    Sportmasseurs) gediplomeerd als sport masseur. Ik beleef enorm veel plezier aan het (oeroude) masseren van zowel
+    sporters als niet-sporters!<br />Ik heb een grote drive; ik zie het als een uitdaging om iedereen datgene te bieden
+    waar hij/zij voor komt, of dat nu het optimaliseren van sportprestaties is, het herstel van een blessure of de
+    behoefte aan diepe algehele ontspanning; ik sta voor je klaar.
+  </p>
+</section>
+
+<style>
+  .about__profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2em;
+  }
+
+  .about__avatar {
+    width: 107px;
+    height: 107px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .about__details {
+    padding: var(--space-30) 10px;
+  }
+
+  .about__details h3 {
+    line-height: 1;
+  }
+
+  .about__phone {
+    margin: var(--space-30) 0;
+    font-size: var(--fs-small);
+    line-height: 1.2;
+  }
+
+  .about__social {
+    display: flex;
+    gap: 10px;
+  }
+
+  .about p:last-child {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+import iconSport from '../assets/images/icon-sportmassage.png';
+import iconRelax from '../assets/images/icon-ontspanningsmassage.png';
+---
+
+<section id="behandelingen" class="treatments container" aria-labelledby="behandelingen-title">
+  <h2 id="behandelingen-title" class="section-title">Behandelingen</h2>
+
+  <p>
+    <strong>Massages bij Massage To Go</strong><br />Zowel voor de sportmassage als voor de ontspanningsmassage geldt:
+    een massage is nooit 100% hetzelfde.<br />We stemmen altijd vooraf af op hetgeen dat voor jou op dat moment de
+    meeste prioriteit heeft. Dat kan ook gewoon een stukje ontspanning zijn, natuurlijk! Geef bij het maken van een
+    afspraak aan of je blessures hebt.
+  </p>
+
+  <p>
+    Bij de eerste behandeling doen wij een korte intake waarbij we inventariseren wat eventuele problemen en of
+    verwachtingen zijn. Over het algemeen worden rug, nek en schouders standaard gemasseerd; in overleg bekijken we wat
+    er eventueel nog meer moet gebeuren.<br />Tijdens de behandeling wordt er in principe niet gepraat zodat je lekker
+    weg kunt zinken in de massage. De massage kan stevig zijn of wat zachter, al naar gelang je wens. Ook kunnen we in
+    overleg triggerpoints (knoopjes) en vast zittende spieren aanpakken; dit kan eventjes gevoelig zijn maar maakt je
+    spieren uiteindelijk veel soepeler.
+  </p>
+
+  <p>
+    Nota bene:<br />•⁠ ⁠Neem aub 1 grote handdoek mee<br />•⁠ ⁠Graag contant betalen; Massage To Go heeft geen
+    pinapparaat<br />•⁠ ⁠In geval van verhindering wordt u verzocht minimaal 24 uur van te voren te annuleren, anders
+    wordt de voor u gereserveerde tijd in rekening gebracht.<br /><br />Graag tot ziens bij Massage To Go!
+  </p>
+
+  <div class="columns treatments__cards">
+    <article class="treatment-card">
+      <Image src={iconSport} alt="" width={128} height={128} densities={[1, 2]} />
+      <h3>Sportmassage</h3>
+      <p class="treatment-card__subtitle">Activerend of herstellend</p>
+      <hr />
+      <p class="treatment-card__text">
+        De sportmassage is speciaal ontworpen voor actieve mensen. Het helpt je prestaties te verbeteren, blessures te
+        voorkomen en sneller te herstellen na inspanning. Dankzij technieken zoals diepe weefselmassage en stretching,
+        vermindert het spierpijn en bevordert het ontspanning. Of je nu een atleet bent of gewoon fit wilt blijven, een
+        sportmassage ondersteunt je actieve levensstijl.
+      </p>
+    </article>
+
+    <article class="treatment-card">
+      <Image src={iconRelax} alt="" width={128} height={128} densities={[1, 2]} />
+      <h3>Ontspanningsmassage</h3>
+      <p class="treatment-card__subtitle" aria-hidden="true">&nbsp;</p>
+      <hr />
+      <p class="treatment-card__text">
+        Een ontspanningsmassage helpt je om stress en angst te verminderen, en geeft je een moment van rust. Je zult
+        merken dat je slaap verbetert, spierspanning en pijn verlicht worden, en dat je bloedsomloop en immuunsysteem een
+        boost krijgen.
+      </p>
+    </article>
+  </div>
+
+  <p>
+    U kunt bij Massage To Go ook terecht voor: hoofdmassage, hand/voetmassages, cupping therapie en kindermassages.
+    Neem contact op voor meer info.
+  </p>
+</section>
+
+<style>
+  .treatments__cards {
+    padding-block: var(--space-60);
+  }
+
+  .treatment-card {
+    min-height: 650px;
+    padding: var(--space-50);
+    font-size: var(--fs-small);
+    background: var(--color-bg);
+    border: 3px solid var(--color-text);
+  }
+
+  .treatment-card img {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 24px;
+  }
+
+  .treatment-card h3 {
+    text-align: center;
+  }
+
+  .treatment-card__subtitle {
+    margin: 0;
+    text-align: center;
+  }
+
+  .treatment-card hr {
+    margin-block: var(--space-40);
+    border: 0;
+    border-top: 2px solid var(--color-rule);
+  }
+
+  .treatment-card__text {
+    margin: 0;
+    font-size: var(--fs-medium);
+  }
+</style>

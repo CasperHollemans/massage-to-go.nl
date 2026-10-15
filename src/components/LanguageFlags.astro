@@ -1,0 +1,119 @@
+---
+/**
+ * Flag buttons that each open a small dialog saying which other languages are spoken.
+ */
+const languages = [
+  { code: 'en', flag: '🇬🇧', label: 'English', title: 'I speak English', cta: 'Contact me' },
+  { code: 'fr', flag: '🇫🇷', label: 'Français', title: 'Je parle français', cta: 'Contactez-moi' },
+  { code: 'de', flag: '🇩🇪', label: 'Deutsch', title: 'Ich spreche Deutsch', cta: 'Kontaktieren Sie mich' },
+];
+---
+
+<div class="language-flags container">
+  <div class="language-flags__row">
+    {
+      languages.map((lang) => (
+        <button class="language-flags__flag" type="button" data-dialog={`lang-${lang.code}`} aria-haspopup="dialog" lang={lang.code}>
+          <span aria-hidden="true">{lang.flag}</span>
+          <span class="visually-hidden">{lang.label}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    languages.map((lang) => (
+      <dialog id={`lang-${lang.code}`} class="language-dialog" lang={lang.code} aria-labelledby={`lang-${lang.code}-title`}>
+        <p id={`lang-${lang.code}-title`} class="language-dialog__title">{lang.title}</p>
+        <p class="language-dialog__cta">
+          <a href="#contact">{lang.cta}</a>
+        </p>
+        <button class="language-dialog__close" type="button" aria-label="Close">X</button>
+      </dialog>
+    ))
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-dialog]').forEach((button) => {
+    const dialog = document.getElementById(button.dataset.dialog!) as HTMLDialogElement | null;
+    if (!dialog) return;
+
+    button.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('.language-dialog__close')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector('a')?.addEventListener('click', () => dialog.close());
+    // Close when clicking the backdrop.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
+
+<style>
+  .language-flags {
+    padding-block: var(--space-30);
+  }
+
+  .language-flags__row {
+    display: flex;
+    margin-left: 65%;
+  }
+
+  .language-flags__flag {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0;
+    font-size: var(--fs-flag);
+    line-height: 1;
+    text-align: left;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .language-dialog {
+    width: min(864px, 100% - 2 * var(--gutter));
+    max-width: none;
+    margin: 100px auto auto;
+    padding: 18px 18px 4px;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 0;
+    box-shadow: 1px 1px 3px rgb(2 2 2 / 0.23);
+  }
+
+  .language-dialog::backdrop {
+    background: rgb(180 180 180 / 0.35);
+  }
+
+  .language-dialog__title {
+    margin: 0 0 10px;
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .language-dialog__cta {
+    margin: 0 0 18px;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .language-dialog__cta a {
+    color: var(--color-text);
+  }
+
+  .language-dialog__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    color: #fff;
+    background: #000;
+    border: 0;
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import ngs from '../assets/images/ngs-masseur.png';
+
+const reviewsUrl =
+  'https://www.google.com/search?sa=X&sca_esv=6803a1afa38366d6&rlz=1C5CHFA_enNL889NL889&tbm=lcl&q=Massage+To+Go+Reviews&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDIwMTI0MzG3NDcxNDGwMDczMtvAyPiKUdQ3sbg4MT1VISRfwT1fISi1LDO1vHgRK3ZxAJeHB6VLAAAA&rldimm=12042164797414087626&hl=nl-NL&ved=2ahUKEwjuhK_WkPuOAxXm8AIHHaCUH9kQ9fQKegQIWhAF&biw=1792&bih=974&dpr=2#lkt=LocalPoiReviews';
+---
+
+<section class="intro container" aria-label="Introductie">
+  <p class="intro__lead">
+    Sinds mei 2023 verzorgt Massage To Go Sittard sport- en ontspanningsmassages in sportschool Athletic Performance
+    Studio. Of je nu komt voor herstel na een zware training, pijnklachten of gewoon een moment van ontspanning zoekt,
+    in overleg word er een passende massage voor jou op maat aangeboden. Maak snel een afspraak voor je massage via
+    onderstaande contactmogelijkheden.
+  </p>
+
+  <div class="button-row intro__reviews">
+    <a class="button" href={reviewsUrl} target="_blank" rel="noopener noreferrer">Lees hier mijn reviews</a>
+  </div>
+
+  <p>
+    Nathalie Hendrix, eigenaar en masseur van Massage To Go, is gediplomeerd massagetherapeut en gecertificeerd
+    sportmasseur. Zij is aangesloten bij het NGS (Nederlands Genootschap voor Sportmassage).
+  </p>
+
+  <a class="intro__ngs" href="https://www.ngsmassage.nl/" target="_blank" rel="noopener noreferrer">
+    <Image src={ngs} alt="NGS masseur – Nederlands Genootschap voor Sportmassage" width={300} height={179} densities={[1, 2]} />
+  </a>
+</section>
+
+<style>
+  .intro__lead {
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+
+  .intro__reviews {
+    margin-bottom: var(--space-70);
+  }
+
+  .intro__ngs {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 2em;
+  }
+
+  .intro__ngs img {
+    width: 300px;
+  }
+</style>

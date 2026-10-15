@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Every image in src/assets/images/fotos/ becomes a slide, sorted by file name.
+// To add, remove or reorder photos: add/delete/rename files there (prefix with 1-, 2-, …).
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/images/fotos/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+});
+const photos = Object.keys(files)
+  .sort()
+  .map((path) => files[path].default);
+
+const SLIDE_HEIGHT = 900;
+const SLIDE_WIDTH = 1190;
+
+// Slides are cropped with object-fit: cover at a fixed height, so the rendered width is
+// max(slide width, height × aspect ratio). Request matching sizes so images stay sharp.
+const sizesFor = (img: ImageMetadata) => {
+  const coverWidth = Math.round((SLIDE_HEIGHT * img.width) / img.height);
+  return `(max-width: 1240px) ${Math.max(coverWidth, 400)}px, ${Math.max(coverWidth, SLIDE_WIDTH)}px`;
+};
+---
+
+<section id="fotos" class="photos" aria-labelledby="fotos-title">
+  <div class="container">
+    <h2 id="fotos-title" class="section-title">Foto’s</h2>
+
+    <div class="carousel" data-carousel>
+      <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="Vorige foto" data-prev>
+        <svg viewBox="0 0 512 512" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM116.7 244.7l112-112c4.6-4.6 11.5-5.9 17.4-3.5s9.9 8.3 9.9 14.8l0 64 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 64c0 6.5-3.9 12.3-9.9 14.8s-12.9 1.1-17.4-3.5l-112-112c-6.2-6.2-6.2-16.4 0-22.6z" />
+        </svg>
+      </button>
+
+      <ul class="carousel__track" data-track aria-label="Foto’s van Massage To Go" tabindex="0">
+        {
+          photos.map((photo, i) => (
+            <li class="carousel__slide" aria-label={`Foto ${i + 1} van ${photos.length}`}>
+              <Image
+                src={photo}
+                alt=""
+                widths={[480, 800, 1190, 1600, 2048].filter((w) => w <= photo.width)}
+                sizes={sizesFor(photo)}
+                loading="lazy"
+              />
+            </li>
+          ))
+        }
+      </ul>
+
+      <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="Volgende foto" data-next>
+        <svg viewBox="0 0 512 512" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM395.3 267.3l-112 112c-4.6 4.6-11.5 5.9-17.4 3.5s-9.9-8.3-9.9-14.8l0-64-96 0c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32l96 0 0-64c0-6.5 3.9-12.3 9.9-14.8s12.9-1.1 17.4 3.5l112 112c6.2 6.2 6.2 16.4 0 22.6z" />
+        </svg>
+      </button>
+
+      <div class="carousel__dots" data-dots>
+        {
+          photos.map((_, i) => (
+            <button type="button" aria-label={`Ga naar foto ${i + 1}`} aria-current={i === 0 ? 'true' : undefined} />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>('[data-track]')!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-dots] button'));
+    let current = 0;
+
+    const goTo = (index: number) => {
+      const i = (index + slides.length) % slides.length;
+      track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    };
+
+    const update = () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i === current) return;
+      current = i;
+      dots.forEach((dot, n) => dot.toggleAttribute('aria-current', n === i));
+    };
+
+    carousel.querySelector('[data-prev]')!.addEventListener('click', () => goTo(current - 1));
+    carousel.querySelector('[data-next]')!.addEventListener('click', () => goTo(current + 1));
+    dots.forEach((dot, n) => dot.addEventListener('click', () => goTo(n)));
+    track.addEventListener('scroll', update, { passive: true });
+    track.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') goTo(current - 1);
+      if (event.key === 'ArrowRight') goTo(current + 1);
+    });
+  });
+</script>
+
+<style>
+  .photos {
+    margin-top: var(--space-70);
+    padding-bottom: var(--space-80);
+  }
+
+  .carousel {
+    position: relative;
+    padding-inline: 5px;
+  }
+
+  .carousel__track {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .carousel__slide img {
+    width: 100%;
+    height: 900px;
+    object-fit: cover;
+  }
+
+  .carousel__arrow {
+    position: absolute;
+    top: calc(450px - 10px);
+    z-index: 1;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    color: #333;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .carousel__arrow--prev {
+    left: -25px;
+  }
+
+  .carousel__arrow--next {
+    right: -25px;
+  }
+
+  @media (max-width: 921px) {
+    /* keep the arrows inside the viewport (the original pushed the right one off-screen) */
+    .carousel__arrow--prev {
+      left: -17px;
+    }
+
+    .carousel__arrow--next {
+      right: -17px;
+    }
+  }
+
+  .carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .carousel__dots button {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .carousel__dots button::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin: auto;
+    border-radius: 50%;
+    background: #000;
+    opacity: 0.25;
+  }
+
+  .carousel__dots button[aria-current]::before {
+    opacity: 0.75;
+  }
+</style>
