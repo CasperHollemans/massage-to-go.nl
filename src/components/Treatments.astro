@@ -63,8 +63,17 @@ import iconRelax from '../assets/images/icon-ontspanningsmassage.png';
 </section>
 
 <style>
+  .treatments {
+    display: flow-root; /* keep the video's bottom margin from collapsing into the heading's */
+  }
+
   .treatments__cards {
     padding-block: var(--space-60);
+    margin-bottom: var(--gap);
+  }
+
+  .treatments > p:last-child {
+    margin-bottom: 0;
   }
 
   .treatment-card {
@@ -78,7 +87,7 @@ import iconRelax from '../assets/images/icon-ontspanningsmassage.png';
   .treatment-card img {
     width: 128px;
     height: 128px;
-    margin: 0 auto 24px;
+    margin: 0 auto;
   }
 
   .treatment-card h3 {

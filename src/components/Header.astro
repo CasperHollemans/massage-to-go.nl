@@ -156,6 +156,11 @@ const isCurrent = (href: string) => !href.includes('#') && (href.replace(/\/$/, 
       cursor: pointer;
     }
 
+    .site-header__toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
     .site-header__toggle[aria-expanded='true'] {
       border-color: var(--color-text);
     }
@@ -186,7 +191,6 @@ const isCurrent = (href: string) => !href.includes('#') && (href.replace(/\/$/, 
 
     .site-nav ul {
       flex-direction: column;
-      padding-bottom: 10px;
     }
 
     .site-nav a {

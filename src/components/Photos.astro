@@ -98,6 +98,7 @@ const sizesFor = (img: ImageMetadata) => {
 
 <style>
   .photos {
+    display: flow-root; /* keep the heading's top margin inside the section */
     margin-top: var(--space-70);
     padding-bottom: var(--space-80);
   }
@@ -171,7 +172,8 @@ const sizesFor = (img: ImageMetadata) => {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
+    padding-block: 8px;
   }
 
   .carousel__dots button {
