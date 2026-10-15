@@ -1,0 +1,11 @@
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: the server responded with a status of 404 (Not Found)
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: net::ERR_FAILED
+Failed to load resource: the server responded with a status of 404 (Not Found)
+Failed to load resource: the server responded with a status of 404 (Not Found)
+WPConsent: failed to load styles from https://massage-to-go.nl/wp-content/plugins/wpconsent-cookies-banner-privacy-suite/build/frontend.css?ver=e253d8130dc693debd57; showing the consent UI with fallback styling.
+Failed to load resource: the server responded with a status of 404 (Not Found)
